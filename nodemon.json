@@ -1,0 +1,10 @@
+{
+    "env" : {
+        "MYSQL_USER" : "admin",
+        "MYSQL_PASSWORD" : "123mudar",
+        "MYSQL_DATABASE" : "proj_trilha",
+        "MYSQL_HOST" : "localhost",
+        "MYSQL_PORT" : 3306,
+        "PORT" : 3001
+    }
+}
