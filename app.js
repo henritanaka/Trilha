@@ -4,6 +4,7 @@ const morgan = require('morgan');
 const bodyParser = require('body-parser')
 
 const routeUsers = require('./routes/users')
+const routeSystem = require('./routes/system')
 
 app.use(morgan('dev'));
 app.use('/uploads', express.static('uploads'))
@@ -23,6 +24,7 @@ app.use((req, res, next) => {
 })
 
 app.use('/users', routeUsers)
+app.use('/system', routeSystem)
 
 //When route path is not found - Note: don't expecified the path on use() param
 app.use((req, res, next) => {
