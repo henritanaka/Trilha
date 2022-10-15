@@ -36,7 +36,7 @@ router.post('/image', upload.single('image_skin'), (req, res, next) => {
             'INSERT INTO tbl_skin (nome, path) VALUES (?,?)', //Execution of call
             [
                 req.body.nome,
-                req.file.path
+                ('http://localhost:3001/' + req.file.path).replace(/\\/g, '/')
             ],
             (error, result, field) => { //Result of call
                 conn.release(); //Release pull conection
