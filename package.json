@@ -1,11 +1,11 @@
 {
   "name": "rest-api",
   "version": "1.0.0",
-  "description": "Demo de REST API",
+  "description": "Jogo da Trilha Backend",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon ./server.js localhost 3000"
+    "start": "nodemon ./server.js localhost 3001"
   },
   "author": "henritanaka",
   "license": "ISC",

@@ -16,7 +16,7 @@ router.post('/cadastro', (req, res, next) => {
             if (results.length > 0){
                 res.status(409).send({ message: "Useário já cadastrado"})
             }else{
-                bcrypt.hash(req.body.senha, 10, (errBcrypt, hash) => {
+                bcrypt.hash(req.body.senha, 0, (errBcrypt, hash) => {
                     if(errBcrypt) { return res.status(500).send( {message: "Hash creation", error: errBcrypt})}
                     conn.query(
                     `INSERT INTO tbl_usuario (email,senha,nome,data_cadastro,data_nascimento,sexo,moeda,ponto,skin,flag_adm) VALUES (?,?,?,?,?,?,?,?,?,?)`, 
