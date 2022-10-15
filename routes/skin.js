@@ -36,14 +36,14 @@ router.post('/image', upload.single('image_skin'), (req, res, next) => {
             'INSERT INTO tbl_skin (nome, path) VALUES (?,?)', //Execution of call
             [
                 req.body.nome,
-                ('http://localhost:3001/' + req.file.path).replace(/\\/g, '/')
+                (req.file.path).replace(/\\/g, '/')
             ],
             (error, result, field) => { //Result of call
                 conn.release(); //Release pull conection
                 if(error) { return res.status(500).send({ message: "POST /image database return at skins", error: error})}
                 const response = {
                     message: 'Image insert with sucess',
-                    url: ('http://localhost:3001/' + req.file.path).replace(/\\/g, '/')
+                    path: (req.file.path).replace(/\\/g, '/')
                 }
                 res.status(201).send(response)
             }
@@ -67,7 +67,7 @@ router.get('/', (req, res, next) => {
                         return{
                             id: skin.id_skin,
                             nome: skin.nome,
-                            url: skin.path
+                            path: skin.path
                         }
                     })
                 }
