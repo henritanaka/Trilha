@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const mysql = require('../mysql').pool;
 const multer = require('multer');
+const fs = require('fs')
 
 const storage = multer.diskStorage({//callback
     destination: function (req, file, cb){
@@ -29,7 +30,7 @@ const upload = multer({
 
 //Upload de imagens localmente
 router.post('/image', upload.single('image_skin'), (req, res, next) => {
-    console.log(req.file)
+    //console.log(req.file)
     mysql.getConnection((error, conn) => {
         if(error) { return res.status(500).send({ error: "POST /image database connection at skins", error: error})}
         conn.query(
@@ -48,6 +49,67 @@ router.post('/image', upload.single('image_skin'), (req, res, next) => {
                 res.status(201).send(response)
             }
         )
+    })
+});
+
+router.patch('/image', upload.single('image_skin'), (req, res, next) => {
+    mysql.getConnection((error, conn) => {
+        if(error) { return res.status(500).send({ error: "GET / database connection at skins", error: error})}
+        console.log(req.file)
+        if(req.file == undefined){
+            console.log("Not contains image to update")
+            conn.query(
+                `UPDATE tbl_skin
+                    SET nome = ?
+                WHERE id_skin = ?`,
+                [
+                    req.body.nome, 
+                    req.body.id_skin
+                ],
+                (error, result, field) => { //Result of call
+                    conn.release(); //Release pull conection
+                    if(error) { return res.status(500).send({ message: "PATCH / database return at skins", error: error})}
+                    const response = {
+                        message: 'Skin update with sucess',
+                        skin:{
+                            id_skin: req.body.id_skin, //Note, result.id_skin return nothing
+                            nome: req.body.nome,
+                            path: req.body.path
+                        }
+                    } //Attention of status return
+                    return res.status(202).send({response})
+                }
+            )
+        } else {
+            console.log("Contains image to update")
+            conn.query(
+                'SELECT * FROM tbl_skin WHERE id_skin = ?', [req.body.id_skin],
+                (error, result, field) => {
+                    conn.release();
+                    if(error) { return res.status(500).send({ message: "PATCH /image database return at skins", error: error})}
+                    const path = "./" + result[0].path
+                    fs.unlink(path, (err) => { return res.status(500).send()})
+                    mysql.getConnection((error, conn) => {
+                        if(error) { return res.status(500).send({ error: "PATCH / database connection at skins", error: error})}
+                        conn.query(
+                            `UPDATE tbl_skin
+                                SET nome = ?,
+                                    path = ?
+                            WHERE id_skin = ?`,
+                            [
+                                req.body.nome, 
+                                (req.file.path).replace(/\\/g, '/'),
+                                req.body.id_skin
+                            ],
+                            (error, result, field) => { //Result of call
+                                conn.release(); //Release pull conection
+                            }
+                        )
+                    })
+                    res.status(201).send({ message: "Update sucess/File delete with sucess", pathFileDelete: path})
+                }
+            )
+        }
     })
 });
 
