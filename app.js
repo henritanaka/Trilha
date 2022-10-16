@@ -17,8 +17,8 @@ app.use((req, res, next) => {
     res.header('Access-Control-Allow-Header', 
                 'Origin, X-Requested-With, Content-Type, Accept, Authorization'
     ) //Type of header(cabeçalho) server will accept
-    if (req.method === 'OPTIONS'){
-        res.header('Access-Control-Allow-Methods', 'PUT', 'POST', 'PATCH', 'DELETE', 'GET');
+    if (req.method === 'OPTIONS'){ //'PUT', 'POST', 'PATCH', 'DELETE', 'GET'
+        res.header('Access-Control-Allow-Methods', "GET, PUT, PATCH, POST, DELETE");
         return res.status(200).send({});
     }
     next();
