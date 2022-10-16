@@ -13,14 +13,9 @@ app.use(bodyParser.urlencoded({ extended: false})); // just simple data
 app.use(bodyParser.json()); // body json input
 
 app.use((req, res, next) => {
-    res.header('Access-Control-Allow-Origin', '*') //All type of servers url, can access my website
-    res.header('Access-Control-Allow-Header', 
-                'Origin, X-Requested-With, Content-Type, Accept, Authorization'
-    ) //Type of header(cabeçalho) server will accept
-    if (req.method === 'OPTIONS'){ //'PUT', 'POST', 'PATCH', 'DELETE', 'GET'
-        res.header('Access-Control-Allow-Methods', "GET, PUT, PATCH, POST, DELETE");
-        return res.status(200).send({});
-    }
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Methods", "GET,HEAD,OPTIONS,POST,PUT,DELETE,PATCH");
+    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, Authorization");
     next();
 })
 
