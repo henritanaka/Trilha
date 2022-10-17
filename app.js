@@ -8,7 +8,8 @@ const routeSkin = require('./routes/skin')
 const routesLoja = require('./routes/loja')
 
 app.use(morgan('dev'));
-app.use('/uploads', express.static('uploads'))
+app.use('/uploads-loja', express.static('uploads-loja'))
+app.use('/uploads-skin', express.static('uploads-skin'))
 app.use(bodyParser.urlencoded({ extended: false})); // just simple data
 app.use(bodyParser.json()); // body json input
 
