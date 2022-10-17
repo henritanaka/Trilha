@@ -199,7 +199,7 @@ router.delete('/', (req, res, next) => {
     mysql.getConnection((error, conn) => {
         if(error) { return res.status(500).send({ error: "DELETE / database connection at skins", error: error})}
         conn.query(
-            `DELETE FROM tbl_skin WHERE id_skin = ?`, [req.body.id_skin],
+            `DELETE FROM tbl_skin WHERE id_skin = ?`, [req.body.id],
             (error, result, field) => { //Result of call
                 conn.release(); //Release pull conection
                 if(error) { return res.status(500).send({ message: "DELETE / database return at skins", error: error})}

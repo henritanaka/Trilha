@@ -216,7 +216,7 @@ router.delete('/', (req, res, next) => {
     mysql.getConnection((error, conn) => {
         if(error) { return res.status(500).send({ error: "DELETE / database connection at loja", error: error})}
         conn.query(
-            `DELETE FROM tbl_loja WHERE id_loja = ?`, [req.body.id_loja],
+            `DELETE FROM tbl_loja WHERE id_loja = ?`, [req.body.id],
             (error, result, field) => { //Result of call
                 conn.release(); //Release pull conection
                 if(error) { return res.status(500).send({ message: "DELETE / database return at loja", error: error})}
