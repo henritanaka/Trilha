@@ -6,7 +6,7 @@ const fs = require('fs')
 
 const storage = multer.diskStorage({//callback
     destination: function (req, file, cb){
-        cb(null, './uploads') //diretório na minha máquina
+        cb(null, './uploads-skin') //diretório na minha máquina
     },
     filename: function (req, file, cb){
         let data = new Date().toISOString().replace(/:/g, '-') + '-';

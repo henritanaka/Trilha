@@ -2,7 +2,7 @@
     "env" : {
         "MYSQL_USER" : "admin2",
         "MYSQL_PASSWORD" : "123mudar",
-        "MYSQL_DATABASE" : "Trilha02",
+        "MYSQL_DATABASE" : "Trilha03",
         "MYSQL_HOST" : "3.87.184.20",
         "MYSQL_PORT" : 3306,
         "PORT" : 3001
