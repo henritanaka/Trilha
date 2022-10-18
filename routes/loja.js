@@ -268,5 +268,53 @@ router.get('/image-table', (req, res, next) => {
     })
 });
 
+router.get('/image-table', (req, res, next) => {
+    mysql.getConnection((error, conn) => {
+        if(error) { return res.status(500).send({ error: "GET /image-table database connection at loja", error: error})}
+        conn.query(
+            `SELECT * FROM tbl_images;`,
+            (error, result, field) => { //Result of call
+                conn.release(); //Release pull conection
+                if(error) { return res.status(500).send({ message: "GET /image-table database return at loja", error: error})}
+                const response = {
+                    image_quantity: result.length,
+                    image_list: result.map(image => {
+                        return{
+                            id: image.id_image,
+                            path: image.path
+                        }
+                    })
+                }
+                res.status(201).send(response)
+            }
+        )
+    })
+});
+
+router.get('/loja-table', (req, res, next) => {
+    mysql.getConnection((error, conn) => {
+        if(error) { return res.status(500).send({ error: "GET /image-table database connection at loja", error: error})}
+        conn.query(
+            `SELECT * FROM tbl_loja;`,
+            (error, result, field) => { //Result of call
+                conn.release(); //Release pull conection
+                if(error) { return res.status(500).send({ message: "GET /image-table database return at loja", error: error})}
+                const response = {
+                    image_quantity: result.length,
+                    image_list: result.map(loja => {
+                        return{
+                            id: loja.id_loja,
+                            valor: loja.valor,
+                            moeda: loja.moeda,
+                            path: loja.path
+                        }
+                    })
+                }
+                res.status(201).send(response)
+            }
+        )
+    })
+});
+
 module.exports = router;
 
