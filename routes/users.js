@@ -57,41 +57,6 @@ router.post('/login', (req, res, next) => {
                 if (result){
                     const info = {
                         message: "Sucess Authentication",
-                        id: results[0].id,
-                        email: results[0].email,
-                        nome: results[0].nome,
-                        moedas: results[0].moedas,
-                        pontos: results[0].pontos,
-                        admin: results[0].admin,
-                        skin: results[0].skin,
-                        nick_name: results[0].nick_name
-                    }
-                    return res.status(200).send({info})
-                }
-                return res.status(401).send({ message: "Fail in authentication"})
-            })
-        })
-    })
-})
-
-router.patch('/login', (req, res, next) => {
-    mysql.getConnection((error, conn) => {
-        if(error) { return res.status(500).send({message: "POST /login connection users", error: error}) }
-        const query = `SELECT * FROM tbl_usuario WHERE email = ?`
-        conn.query(query, [req.body.email], (error, results, fields) => {
-            conn.release()
-            console.log(results)
-            if(error){return res.status(500).send({message: "POST /login connection database users", error: error})}
-            if(results.length < 1 ){
-                return res.status(401).send({message: "Not Authorized ;-;"})
-            }
-            bcrypt.compare(req.body.senha, results[0].senha, (err, result) => {
-                if (err){
-                    return res.status(401).send({ message: "Fail in authentication - Error"})
-                }
-                if (result){
-                    const info = {
-                        message: "Sucess Authentication",
                         id: results[0].id_usuario,
                         email: results[0].email,
                         nome: results[0].nome,
