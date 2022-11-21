@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon ./server.js localhost 3001"
+    "start": "node ./server.js"
   },
   "author": "henritanaka",
   "license": "ISC",
@@ -18,6 +18,5 @@
     "mysql": "^2.18.1"
   },
   "devDependencies": {
-    "nodemon": "^2.0.20"
   }
 }
