@@ -158,7 +158,7 @@ router.patch('/cadastro', (req, res, next) => {
                     }
                 )
             })
-        } else{
+        }else{
             conn.query(
                 `UPDATE tbl_usuario
                     SET email = ?,
@@ -199,7 +199,7 @@ router.patch('/cadastro', (req, res, next) => {
                     return res.status(202).send({response})
                 }
             )
-        }
+        } 
     })
 })
 

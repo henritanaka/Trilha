@@ -6,6 +6,7 @@ const bodyParser = require('body-parser')
 const routeUsers = require('./routes/users')
 const routeSkin = require('./routes/skin')
 const routesLoja = require('./routes/loja')
+const routesPartida = require('./routes/partida')
 
 app.use(morgan('dev'));
 app.use('/uploads-loja', express.static('uploads-loja'))
@@ -23,6 +24,7 @@ app.use((req, res, next) => {
 app.use('/users', routeUsers)
 app.use('/skin', routeSkin)
 app.use('/loja', routesLoja)
+app.use('/partida', routesPartida)
 
 //When route path is not found - Note: don't expecified the path on use() param
 app.use((req, res, next) => {
